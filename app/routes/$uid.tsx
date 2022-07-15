@@ -4,9 +4,10 @@ import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, useParams } from "@remix-run/react";
 import Hero from "slices/Hero";
-import { getPrismicClient } from "~/utils/prismic";
-
-const client = getPrismicClient();
+import {
+  addPrismicDocToCache,
+  getCachedDataByUID,
+} from "~/utils/prismic.server";
 
 export const loader: LoaderFunction = async ({
   params,
@@ -19,7 +20,8 @@ export const loader: LoaderFunction = async ({
   }
 
   try {
-    const doc = await client.getByUID(customType, uid);
+    const doc = await getCachedDataByUID(customType, uid);
+    addPrismicDocToCache(uid, doc);
     return json(doc.data);
   } catch (error) {
     throw new Response("Not found", {
