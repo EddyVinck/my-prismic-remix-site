@@ -22,7 +22,12 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body
+        style={{
+          fontFamily: "sans-serif",
+          lineHeight: 1.4,
+        }}
+      >
         <PrismicProvider>
           <Outlet />
         </PrismicProvider>

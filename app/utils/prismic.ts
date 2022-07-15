@@ -12,6 +12,5 @@ export const getPrismicClient = () => {
   return createClient(endpoint, {
     fetch,
     accessToken,
-    /* TODO routes? */
   });
 };
