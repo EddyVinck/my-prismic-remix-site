@@ -1,7 +1,4 @@
-import {
-  createClient,
-  getRepositoryEndpoint,
-} from "@prismicio/client";
+import { createClient, getRepositoryEndpoint } from "@prismicio/client";
 import type { LinkResolverFunction } from "@prismicio/helpers";
 
 export const repoName = "my-prismic-remix-site";
@@ -16,9 +13,7 @@ export const getPrismicClient = () => {
   });
 };
 
-export const linkResolver: LinkResolverFunction = (
-  document
-) => {
+export const linkResolver: LinkResolverFunction = (document) => {
   if (document.isBroken) {
     return "/not-found";
   }

@@ -5,16 +5,12 @@ import { addPrismicDocToCache } from "~/utils/prismic.server";
 
 const client = getPrismicClient();
 
-export const action: ActionFunction = async ({
-  request,
-}) => {
+export const action: ActionFunction = async ({ request }) => {
   if (request.method !== "POST") {
     return json({ message: "Method not allowed" }, 405);
   }
   const payload = await request.json();
-  if (
-    payload.secret !== process.env.PRISMIC_WEBHOOK_SECRET
-  ) {
+  if (payload.secret !== process.env.PRISMIC_WEBHOOK_SECRET) {
     return json({ message: "Signature mismatch" }, 401);
   }
 
@@ -23,16 +19,11 @@ export const action: ActionFunction = async ({
 
 async function updateCacheEntries(payload: any) {
   try {
-    if (
-      payload.type !== "api-update" &&
-      payload.documents.length <= 0
-    ) {
+    if (payload.type !== "api-update" && payload.documents.length <= 0) {
       throw new Error("No documents to update");
     }
 
-    const documents = await client.getAllByIDs(
-      payload.documents
-    );
+    const documents = await client.getAllByIDs(payload.documents);
 
     // Get a list of UIDs and use them to update the cache
     await Promise.all(
@@ -41,19 +32,13 @@ async function updateCacheEntries(payload: any) {
         .map(async (doc) => {
           const uid = doc.uid as string;
           console.log(`updating uid ${uid}`);
-          const updatedDoc = await client.getByUID(
-            doc.type,
-            uid
-          );
+          const updatedDoc = await client.getByUID(doc.type, uid);
           addPrismicDocToCache(uid, updatedDoc);
         })
     );
 
     return json({ updated: true }, { status: 200 });
   } catch (err) {
-    return json(
-      { message: "Error updating cache" },
-      { status: 500 }
-    );
+    return json({ message: "Error updating cache" }, { status: 500 });
   }
 }
