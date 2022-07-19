@@ -2,7 +2,7 @@ import { createClient, getRepositoryEndpoint } from "@prismicio/client";
 import type { LinkResolverFunction } from "@prismicio/helpers";
 
 export const repoName = "my-prismic-remix-site";
-// If your Prismic repo is private, add  your token here:
+// If your Prismic repo is private, add  your token here via an environment variable
 export const accessToken = "";
 export const endpoint = getRepositoryEndpoint(repoName);
 
