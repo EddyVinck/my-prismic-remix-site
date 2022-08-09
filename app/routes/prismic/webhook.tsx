@@ -3,8 +3,6 @@ import { json } from "@remix-run/node";
 import { getPrismicClient } from "~/utils/prismic";
 import { addPrismicDocToCache } from "~/utils/prismic.server";
 
-const client = getPrismicClient();
-
 export const action: ActionFunction = async ({ request }) => {
   if (request.method !== "POST") {
     return json({ message: "Method not allowed" }, 405);
@@ -18,6 +16,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 async function updateCacheEntries(payload: any) {
+  const client = getPrismicClient();
   try {
     if (payload.type !== "api-update" && payload.documents.length <= 0) {
       throw new Error("No documents to update");

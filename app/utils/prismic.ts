@@ -7,8 +7,7 @@ export const accessToken = "";
 export const endpoint = getRepositoryEndpoint(repoName);
 
 export const getPrismicClient = () => {
-  return createClient(endpoint, {
-    fetch,
+  return createClient(repoName, {
     accessToken,
   });
 };
@@ -17,10 +16,10 @@ export const linkResolver: LinkResolverFunction = (document) => {
   if (document.isBroken) {
     return "/not-found";
   }
-  if (document.uid === "home") {
-    return `/${document.uid}`;
-  }
   if (document.type === "page") {
+    if (document.uid === "home") {
+      return `/${document.uid}`;
+    }
     return `/${document.uid}`;
   }
   return "/";
