@@ -1,6 +1,7 @@
 import LRU from "lru-cache";
 import { getPrismicClient } from "./prismic";
 import type { PrismicDocument } from "@prismicio/types";
+
 const options = {
   max: 500,
 };
