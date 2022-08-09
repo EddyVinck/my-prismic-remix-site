@@ -8,7 +8,7 @@ import Hero from "slices/Hero";
 import {
   addPrismicDocToCache,
   getCachedDataByUID,
-} from "~/utils/prismic.server";
+} from "~/utils/prismicio.server";
 
 export const loader: LoaderFunction = async ({ params }) => {
   const customType = "page";

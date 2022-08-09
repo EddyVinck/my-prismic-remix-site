@@ -1,7 +1,7 @@
 import type { ActionFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { getPrismicClient } from "~/utils/prismic";
-import { addPrismicDocToCache } from "~/utils/prismic.server";
+import { getPrismicClient } from "~/utils/prismicio";
+import { addPrismicDocToCache } from "~/utils/prismicio.server";
 
 export const action: ActionFunction = async ({ request }) => {
   if (request.method !== "POST") {
