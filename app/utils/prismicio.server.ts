@@ -1,6 +1,7 @@
 import LRU from "lru-cache";
 import { getPrismicClient } from "./prismicio";
 import type { PrismicDocument } from "@prismicio/types";
+import type { AllDocumentTypes } from "types.generated";
 
 const options = {
   max: 500,
@@ -15,8 +16,10 @@ export function addPrismicDocToCache<Tdocument extends PrismicDocument>(
   prismicCache.set(uid, doc);
 }
 
+type CustomType = AllDocumentTypes["type"];
+
 export function getCachedDataByUID(
-  customType: string,
+  customType: CustomType,
   uid: string
 ): Promise<PrismicDocument> {
   const client = getPrismicClient();

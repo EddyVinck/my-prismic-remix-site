@@ -1,21 +1,16 @@
-import type { FC } from "react";
-import type { SliceComponentProps, SliceLikeRestV2 } from "@prismicio/react";
-import type * as prismicT from "@prismicio/types";
-
 import { PrismicRichText } from "@prismicio/react";
+import { isFilled } from "@prismicio/helpers";
+import type { SliceComponentProps } from "@prismicio/react";
+import type { HeroSlice } from "types.generated";
 
-interface SliceData extends SliceLikeRestV2 {
-  primary: {
-    title: prismicT.RichTextField;
-    description: prismicT.RichTextField;
-  };
-}
-type Props = SliceComponentProps<SliceData>;
+type Props = SliceComponentProps<HeroSlice>;
 
-const Hero: FC<Props> = ({ slice }) => (
+const Hero = ({ slice }: Props) => (
   <section>
-    {slice.primary.title && <PrismicRichText field={slice.primary.title} />}
-    {slice.primary.description && (
+    {isFilled.title(slice.primary.title) && (
+      <PrismicRichText field={slice.primary.title} />
+    )}
+    {isFilled.richText(slice.primary.description) && (
       <PrismicRichText field={slice.primary.description} />
     )}
   </section>
