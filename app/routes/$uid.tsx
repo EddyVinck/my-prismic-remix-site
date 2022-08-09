@@ -1,4 +1,5 @@
 import { SliceZone } from "@prismicio/react";
+import type { PrismicDocument } from "@prismicio/types";
 import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
@@ -9,9 +10,7 @@ import {
   getCachedDataByUID,
 } from "~/utils/prismic.server";
 
-export const loader: LoaderFunction = async ({
-  params,
-}) => {
+export const loader: LoaderFunction = async ({ params }) => {
   const customType = "page";
   const uid = params.uid as string;
 
@@ -31,16 +30,13 @@ export const loader: LoaderFunction = async ({
 };
 
 export default function Index() {
-  const data = useLoaderData();
+  const data = useLoaderData<PrismicDocument["data"]>();
   const params = useParams();
 
   return (
     <div>
       <h1>Welcome to routes/{params.uid}</h1>
-      <SliceZone
-        slices={data.slices}
-        components={{ hero: Hero }}
-      />
+      <SliceZone slices={data.slices} components={{ hero: Hero }} />
     </div>
   );
 }
