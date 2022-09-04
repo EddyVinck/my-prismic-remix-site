@@ -25,15 +25,13 @@ async function deleteCacheEntries(payload: any) {
     const documents = await client.getAllByIDs(payload.documents);
 
     // Get a list of UIDs and use them to update the cache
-    await Promise.all(
-      documents
-        .filter((doc) => !!doc.uid)
-        .map(async (doc) => {
-          const uid = doc.uid as string;
-          console.log(`deleting uid ${uid}`);
-          removePrismicDocFromCache(uid);
-        })
-    );
+    documents
+      .filter((doc) => !!doc.uid)
+      .map(async (doc) => {
+        const uid = doc.uid as string;
+        console.log(`deleting uid ${uid}`);
+        removePrismicDocFromCache(uid);
+      });
 
     return json({ updated: true }, { status: 200 });
   } catch (err) {
