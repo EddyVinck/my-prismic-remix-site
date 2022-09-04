@@ -24,7 +24,7 @@ async function deleteCacheEntries(payload: any) {
 
     const documents = await client.getAllByIDs(payload.documents);
 
-    // Get a list of UIDs and use them to update the cache
+    // Go over the list of UIDs and use them to delete items in the cache
     documents
       .filter((doc) => !!doc.uid)
       .map(async (doc) => {
