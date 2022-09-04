@@ -9,10 +9,7 @@ const options = {
 
 export const prismicCache = new LRU(options);
 
-export function addPrismicDocToCache<Tdocument extends PrismicDocument>(
-  uid: string,
-  doc: Tdocument
-) {
+export function addPrismicDocToCache(uid: string, doc: PrismicDocument) {
   prismicCache.set(uid, doc);
 }
 
@@ -29,4 +26,8 @@ export function getCachedDataByUID(
   }
 
   return client.getByUID(customType, uid);
+}
+
+export function removePrismicDocFromCache(uid: string) {
+  prismicCache.delete(uid);
 }
