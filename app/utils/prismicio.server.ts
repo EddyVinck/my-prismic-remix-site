@@ -19,7 +19,7 @@ type CustomType = AllDocumentTypes["type"];
 export function getCachedDataByUID(
   customType: CustomType,
   uid: string,
-  params?: Parameters<Client["getByUID"]>[2]
+  params: Parameters<Client["getByUID"]>[2] = {}
 ): Promise<PrismicDocument> {
   const client = getPrismicClient();
   const doc = prismicCache.get<PrismicDocument>(uid);
@@ -27,7 +27,7 @@ export function getCachedDataByUID(
     return Promise.resolve(doc);
   }
 
-  return client.getByUID(customType, uid, params || {});
+  return client.getByUID(customType, uid, params);
 }
 
 export function removePrismicDocFromCache(uid: string) {
